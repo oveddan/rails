@@ -27,6 +27,9 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'line_items', :plural_name
     assert_name g, 'line_item',  :i18n_scope
     assert_name g, 'line_items', :table_name
+    assert_name g, 'line_item',  :show_route_name
+    assert_name g, 'line_items', :index_route_name
+    assert_name g, '/line_items', :route_url
   end
 
   def test_named_generator_attributes
@@ -41,6 +44,9 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'foos',       :plural_name
     assert_name g, 'admin.foo',  :i18n_scope
     assert_name g, 'admin_foos', :table_name
+    assert_name g, 'admin_foo',  :show_route_name
+    assert_name g, 'admin_foos', :index_route_name
+    assert_name g, '/admin/foos', :route_url
   end
 
   def test_named_generator_attributes_as_ruby
@@ -55,6 +61,9 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'foos',       :plural_name
     assert_name g, 'admin.foo',  :i18n_scope
     assert_name g, 'admin_foos', :table_name
+    assert_name g, 'admin_foo',  :show_route_name
+    assert_name g, 'admin_foos', :index_route_name
+    assert_name g, '/admin/foos', :route_url
   end
 
   def test_named_generator_attributes_without_pluralized
@@ -73,6 +82,9 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'admin/foos',  :controller_file_path
     assert_name g, 'foos',        :controller_file_name
     assert_name g, 'admin.foos',  :controller_i18n_scope
+    assert_name g, 'admin_foo',   :show_route_name
+    assert_name g, 'admin_foos',  :index_route_name
+    assert_name g, '/admin/foos', :route_url
   end
 
   def test_scaffold_plural_names_as_ruby
@@ -83,6 +95,9 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'admin/foos',  :controller_file_path
     assert_name g, 'foos',        :controller_file_name
     assert_name g, 'admin.foos',  :controller_i18n_scope
+    assert_name g, 'admin_foo',   :show_route_name
+    assert_name g, 'admin_foos',  :index_route_name
+    assert_name g, '/admin/foos', :route_url
   end
 
   def test_application_name
@@ -134,6 +149,9 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'admin/foos',  :controller_file_path
     assert_name g, 'foos',        :controller_file_name
     assert_name g, 'admin.foos',  :controller_i18n_scope
+    assert_name g, 'admin_foo',   :show_route_name
+    assert_name g, 'admin_foos',  :index_route_name
+    assert_name g, '/admin/foos', :route_url
   end
 
   protected
