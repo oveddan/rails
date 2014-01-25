@@ -22,6 +22,35 @@ namespace :test do
       ruby "-w", "-I#{dash_i.join ':'}", file
     end
   end
+  task :generators do
+    dirs = ('generators').split(",")
+    test_files = dirs.map { |dir| "test/#{dir}/*_test.rb" }
+    Dir[*test_files].each do |file|
+      next true if file.include?("fixtures")
+      dash_i = [
+        'test',
+        'lib',
+        "#{File.dirname(__FILE__)}/../activesupport/lib",
+        "#{File.dirname(__FILE__)}/../actionpack/lib",
+        "#{File.dirname(__FILE__)}/../activemodel/lib"
+      ]
+      ruby "-w", "-I#{dash_i.join ':'}", file
+    end
+  end
+  # to run this, within the directory:
+  # rake test:one_file FILE=test/generators/scaffold_controller_generator_test.rb
+  task :one_file do
+    file = ENV["FILE"]
+    next true if file.include?("fixtures")
+    dash_i = [
+      'test',
+      'lib',
+      "#{File.dirname(__FILE__)}/../activesupport/lib",
+      "#{File.dirname(__FILE__)}/../actionpack/lib",
+      "#{File.dirname(__FILE__)}/../activemodel/lib"
+    ]
+    ruby "-w", "-I#{dash_i.join ':'}", file
+  end
 end
 
 Rake::TestTask.new('test:regular') do |t|
