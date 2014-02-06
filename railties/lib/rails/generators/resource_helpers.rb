@@ -55,14 +55,6 @@ module Rails
           @controller_i18n_scope ||= controller_file_path.tr('/', '.')
         end
 
-        def index_route_name
-          @index_route_name ||= controller_file_path.tr('/', '_')
-        end
-
-        def show_route_name
-          @show_route_name ||= index_route_name.singularize
-        end
-
         # Loads the ORM::Generators::ActiveModel class. This class is responsible
         # to tell scaffold entities how to generate an specific method for the
         # ORM. Check Rails::Generators::ActiveModel for more information.

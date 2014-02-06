@@ -27,8 +27,7 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'line_items', :plural_name
     assert_name g, 'line_item',  :i18n_scope
     assert_name g, 'line_items', :table_name
-    assert_name g, 'line_item',  :show_route_name
-    assert_name g, 'line_items', :index_route_name
+    assert_name g, 'line_item',  :show_helper
     assert_name g, '/line_items', :route_url
   end
 
@@ -44,8 +43,7 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'foos',       :plural_name
     assert_name g, 'admin.foo',  :i18n_scope
     assert_name g, 'admin_foos', :table_name
-    assert_name g, 'admin_foo',  :show_route_name
-    assert_name g, 'admin_foos', :index_route_name
+    assert_name g, 'admin_foo',  :show_helper
     assert_name g, '/admin/foos', :route_url
   end
 
@@ -61,8 +59,7 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'foos',       :plural_name
     assert_name g, 'admin.foo',  :i18n_scope
     assert_name g, 'admin_foos', :table_name
-    assert_name g, 'admin_foo',  :show_route_name
-    assert_name g, 'admin_foos', :index_route_name
+    assert_name g, 'admin_foo',  :show_helper
     assert_name g, '/admin/foos', :route_url
   end
 
@@ -82,8 +79,7 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'admin/foos',  :controller_file_path
     assert_name g, 'foos',        :controller_file_name
     assert_name g, 'admin.foos',  :controller_i18n_scope
-    assert_name g, 'admin_foo',   :show_route_name
-    assert_name g, 'admin_foos',  :index_route_name
+    assert_name g, 'admin_foo',   :show_helper
     assert_name g, '/admin/foos', :route_url
   end
 
@@ -95,8 +91,7 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'admin/foos',  :controller_file_path
     assert_name g, 'foos',        :controller_file_name
     assert_name g, 'admin.foos',  :controller_i18n_scope
-    assert_name g, 'admin_foo',   :show_route_name
-    assert_name g, 'admin_foos',  :index_route_name
+    assert_name g, 'admin_foo',   :show_helper
     assert_name g, '/admin/foos', :route_url
   end
 
@@ -113,6 +108,11 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'posts', :index_helper
   end
 
+  def test_index_helper_with_underscore
+    g = generator ['line_item']
+    assert_name g, 'line_items', :index_helper
+  end
+
   def test_index_helper_to_pluralize_once
     g = generator ['Stadium']
     assert_name g, 'stadia', :index_helper
@@ -123,7 +123,17 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'sheep_index', :index_helper
   end
 
-  def test_hide_namespace
+  def test_index_helper_with_namespace
+    g = generator ['User::Tweet']
+    assert_name g, 'user_tweets', :index_helper
+  end
+
+  def test_index_helper_with_with_model_name_option
+    g = generator ['Admin::User'], model_name: 'User'
+    assert_name g, 'admin_users', :index_helper
+  end
+
+  def test_hide_namespace_
     g = generator ['Hidden']
     g.class.stubs(:namespace).returns('hidden')
 
@@ -149,8 +159,7 @@ class NamedBaseTest < Rails::Generators::TestCase
     assert_name g, 'admin/foos',  :controller_file_path
     assert_name g, 'foos',        :controller_file_name
     assert_name g, 'admin.foos',  :controller_i18n_scope
-    assert_name g, 'admin_foo',   :show_route_name
-    assert_name g, 'admin_foos',  :index_route_name
+    assert_name g, 'admin_foo',   :show_helper
     assert_name g, '/admin/foos', :route_url
   end
 
