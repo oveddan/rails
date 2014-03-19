@@ -144,6 +144,23 @@ module Rails
           @route_url ||= "/" + controller_file_path
         end
 
+        def form_resource
+          if !namespaced? or singular_table_name.include? namespace ?
+            "[#{namespace}: @#{singular_table_name}]"
+          use_namespace = false
+          if namespaced?
+            if !singular_table_name.include? namespace
+              use_namespace = true
+            end
+          end
+
+          if use_namespace
+            "[#{namespace}: @#{singular_table_name}]"
+          else
+            "@#{singular_table_name}"
+          end
+        end
+
         # Tries to retrieve the application name or simple return application.
         def application_name
           if defined?(Rails) && Rails.application
