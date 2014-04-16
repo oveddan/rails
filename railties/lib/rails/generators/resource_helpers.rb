@@ -55,15 +55,16 @@ module Rails
           @controller_i18n_scope ||= controller_file_path.tr('/', '.')
         end
 
-        def form_resource
-          puts namespace
-          if options[:model_name] and !namespace.nil?
-            "[#{namespace}: @#{singular_table_name}]"
-          else
-            "@#{singular_table_name}"
-          end
+        # def form_resource
+        #   puts 'namespace is: '
+        #   puts Rails::Generators::namespace
+        #   if options[:model_name] and !namespace.nil?
+        #     "[#{namespace}: @#{singular_table_name}]"
+        #   else
+        #     "@#{singular_table_name}"
+        #   end
 
-        end
+        # end
 
         def namespace
           @namespace ||= Rails::Generators::namespace

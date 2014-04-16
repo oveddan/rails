@@ -145,10 +145,11 @@ module Rails
         end
 
         def form_resource
-          if !namespaced? or singular_table_name.include? namespace ?
-            "[#{namespace}: @#{singular_table_name}]"
           use_namespace = false
+          print "namespaced? #{namespaced?}"
           if namespaced?
+            print 'namespace: '
+            print namespace
             if !singular_table_name.include? namespace
               use_namespace = true
             end
