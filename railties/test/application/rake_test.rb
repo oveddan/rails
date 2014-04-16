@@ -194,6 +194,16 @@ module ApplicationTests
       assert_no_match(/Errors running/, output)
     end
 
+    def test_scaffold_with_namespace_tests_pass_by_default
+      output = Dir.chdir(app_path) do
+        `rails generate scaffold admin/user username:string password:string;
+         bundle exec rake db:migrate test`
+      end
+
+      assert_match(/7 runs, 13 assertions, 0 failures, 0 errors/, output)
+      assert_no_match(/Errors running/, output)
+    end
+
     def test_scaffold_with_references_columns_tests_pass_by_default
       output = Dir.chdir(app_path) do
         `rails generate scaffold LineItems product:references cart:belongs_to;
