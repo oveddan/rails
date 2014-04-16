@@ -145,21 +145,19 @@ module Rails
         end
 
         def form_resource
-          use_namespace = false
-          print "namespaced? #{namespaced?}"
-          if namespaced?
-            print 'namespace: '
-            print namespace
-            if !singular_table_name.include? namespace
-              use_namespace = true
-            end
-          end
+          route_namespaces = controller_class_path - regular_class_path
 
-          if use_namespace
-            "[#{namespace}: @#{singular_table_name}]"
+          if route_namespaces.count > 0 and 
+            result = "["
+            route_namespaces.each do |route_namespace|
+              result << ":#{route_namespace}, "
+            end
+            result << "@#{singular_table_name}]"
           else
-            "@#{singular_table_name}"
+            result = "@#{singular_table_name}" 
           end
+          
+          result
         end
 
         # Tries to retrieve the application name or simple return application.
